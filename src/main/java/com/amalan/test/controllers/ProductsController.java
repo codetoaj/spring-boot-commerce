@@ -49,10 +49,11 @@ public class ProductsController {
 		return res;
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/create")
 	public Response createProduct(@RequestBody Products product) {
 		Response response = new Response();
 		try {
+			product.id = null;
 			productService.save(product);
 			response.setStatus("success");
 			response.setMessage("Products Created Successfully!");
