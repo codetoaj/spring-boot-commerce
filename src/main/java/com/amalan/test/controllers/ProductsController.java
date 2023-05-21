@@ -26,7 +26,7 @@ public class ProductsController {
 	@GetMapping("/{id}")
 	public Object getProduct(@PathVariable int id) {		
 		Optional<Products> product = productService.findById(id); 
-		if (product.isEmpty()) {
+		if (!product.isPresent()) {
 			Response res = new Response();
 			res.setStatus("error");
 			res.setMessage("Product not found!");
@@ -39,7 +39,7 @@ public class ProductsController {
 		return res;
 	}
 	
-	@GetMapping("/list")
+	@GetMapping("/")
 	public Object listProducts() {		
 		Iterable<Products> products= productService.findAll();
 		ResponseWithData res = new ResponseWithData();

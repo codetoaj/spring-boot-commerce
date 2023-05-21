@@ -16,17 +16,16 @@ import com.amalan.test.models.Response;
 import com.amalan.test.models.ResponseWithData;
 import com.amalan.test.services.CategoryService;
 
-
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@GetMapping("/{id}")
 	public Object getCategory(@PathVariable int id) {
 		Optional<Categories> category = categoryService.findById(id);
-		if (!category.isEmpty()) {
+		if (category.isPresent()) {
 			ResponseWithData res = new ResponseWithData();
 			res.setStatus("success");
 			res.setMessage("Category Requested.");
@@ -38,7 +37,7 @@ public class CategoryController {
 		res.setMessage("Category not found.");
 		return res;
 	}
-	
+
 	@PostMapping("/create")
 	public Response addCategory(@RequestBody Categories category) {
 		Response res = new Response();
@@ -47,13 +46,13 @@ public class CategoryController {
 			categoryService.save(category);
 			res.setStatus("success");
 			res.setMessage("Category created successfully!");
-		} catch(Exception e) {
+		} catch (Exception e) {
 			res.setStatus("error");
 			res.setMessage("Failed to create category!");
 		}
 		return res;
 	}
-	
+
 	@GetMapping("/list")
 	public ResponseWithData getCategories() {
 		ResponseWithData res = new ResponseWithData();
@@ -63,7 +62,7 @@ public class CategoryController {
 		res.setData(categories);
 		return res;
 	}
-	
+
 	@PutMapping("/update/{id}")
 	public Response updateCategory(@PathVariable int id, @RequestBody Categories category) {
 		Response res = new Response();
@@ -72,7 +71,7 @@ public class CategoryController {
 			categoryService.save(category);
 			res.setStatus("success");
 			res.setMessage("Category updated successfully!");
-		} catch(Exception e) {
+		} catch (Exception e) {
 			res.setStatus("error");
 			res.setMessage("Failed to update category.");
 		}
