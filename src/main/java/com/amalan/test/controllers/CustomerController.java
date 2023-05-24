@@ -26,7 +26,7 @@ public class CustomerController {
     PasswordEncoder passwordEncoder;
 
     @PostMapping("/create")
-    public Response createProduct(@RequestBody Customers customer) {
+    public Response createCustomer(@RequestBody Customers customer) {
         Response response = new Response();
         this.passwordEncoder = new BCryptPasswordEncoder();
         try {
